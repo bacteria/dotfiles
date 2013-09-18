@@ -2,11 +2,28 @@
 
 My dotfiles. Mainly vim configuration and plugins
 
+
+## Installation
+
+    git clone git://github.com/bacteria/dotfiles ~/.dotfiles
+    cd ~/.dotfiles
+    ./install.sh
+
 ## Vim Plugins
 
 ### Adding a Plugin
     git submodule add http://github.com/tpope/vim-fugitive.git vim/bundle/vim-fugitive
 
+This will update the `.gitmodules` file by appending something like:
+
+    [submodule "vim/bundle/vim-fugitive"]
+        path = vim/bundle/vim-fugitive
+        url = http://github.com/xxxxxx/vim-fugitive.git
+    
+As well as checkout out the git repo into the `vim/bundle/vim-javascript` directory. You can then commit these changes as follows:
+
+    git add .
+    git ci -m "Added the fugitive bundle"
 
 ### Upgrading a plugin bundle
 To fetch the latest changes, go into the fugitive repository, and pull the latest version:

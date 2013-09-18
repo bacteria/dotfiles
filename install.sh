@@ -1,24 +1,23 @@
-#/bin/bash
+#/usr/bin/env bash
 #
 # install.sh
 # Install script for dotfiles
-# 28 April, 2013
 #
 
-cd ~
-
-# Remove existing vim files
-rm -rf ~/.vimrc ~/.vim
-
-# Install new files from dotfiles
-ln -s dotfiles/vim .vim
-ln -s dotfiles/vim/vimrc .vimrc
+cur_path="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+home_path="$(eval echo ~${SUDO_USER})"
 
 # Install and configure submodules
-cd dotfiles
 git submodule init
 git submodule update
 
+# Remove existing vim files
+rm -f "${home_path}"/.vimrc
+rm -rf "${home_path}"/.vim
+
+# Install new files from dotfiles
+ln -s "${cur_path}"/vim "${home_path}"/.vim
+ln -s "${cur_path}"/vimrc "${home_path}"/.vimrc
 
 exit 0
 
