@@ -25,6 +25,17 @@ As well as checkout out the git repo into the `vim/bundle/vim-javascript` direct
     git add .
     git ci -m "Added the fugitive bundle"
 
+### Deleting a Plugin
+In order to delete a plugin use the following commands:
+
+1. Edit the `.gitmodules` file and remove the reference to your submodule.
+2. Edit the `.git/config` file and remove the reference to your submodule.
+3. Remove the actual submodule.
+
+    git rm --cached vendor/plugins/attachment_fu
+    git commit -a -m "removed attachment fu temporarily"
+    git push
+
 ### Upgrading a plugin bundle
 To fetch the latest changes, go into the fugitive repository, and pull the latest version:
 
