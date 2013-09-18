@@ -4,21 +4,17 @@
 " http://vimdoc.sourceforge.net/htmldoc/options.html
 "
 
-" Use Vim settings, rather than Vi settings
-" This must be first, because it changes other options as a side effect
+" use Vim settings. This must be first, because it changes other options
 set nocompatible
 
 " change the leader to be a comma vs slash
 let mapleader=","
 
-" Run pep8
-let g:pep8_map='<leader>8'
-
 " open/close the quickfix window
 nmap <leader>c :copen<CR>
 nmap <leader>cc :cclose<CR>
 
-" ctrl-jklm  changes to that split
+" ctrl-jklm for fast window navigation
 map <c-j> <c-w>j
 map <c-k> <c-w>k
 map <c-l> <c-w>l
@@ -28,6 +24,23 @@ map <c-h> <c-w>h
 "  happen as if in command mode )
 imap <C-W> <C-O><C-W>
 
+" run pep8
+let g:pep8_map='<leader>8'
+
+" load pathogen with docs for all plugins
+filetype off
+call pathogen#incubate()
+call pathogen#helptags()
+
+" switch syntax highlighting on
+syntax on
+
+" try to detect filetypes
+filetype on
+
+" enable file type detection and do language-dependent indenting
+filetype plugin indent on
+
 " Open NerdTree
 "map <leader>n :NERDTreeToggle<CR>
 
@@ -35,33 +48,9 @@ imap <C-W> <C-O><C-W>
 "map <leader>f :CtrlP<CR>
 "map <leader>b :CtrlPBuffer<CR>
 
-" ==========================================================
-" Pathogen - Allows us to organize our vim plugins
-" ==========================================================
-" Load pathogen with docs for all plugins
-filetype off
-"call pathogen#runtime_append_all_bundles()
-call pathogen#incubate()
-call pathogen#helptags()
-
-" ==========================================================
-" Basic Settings
-" ==========================================================
-" Switch syntax highlighting on
-syntax on
-
-" Try to detect filetypes
-filetype on
-
-" Enable file type detection and do language-dependent indenting
-filetype plugin indent on
-
-" Show line numbers.
+" show line numbers.
 set number
-set numberwidth=1            " using only 1 column (and 1 space) while possible
-
-" Try to use colors that look good on a dark background
-set background=dark
+set numberwidth=1            " only 1 column (and 1 space) while possible
 
 " show title in console title bar
 set title
@@ -70,107 +59,84 @@ set title
 set noerrorbells
 set vb t_vb=
 
-" Ignore these files when completing
-set wildignore+=*.o,*.obj,.git,*.pyc
-set wildignore+=eggs/**
-set wildignore+=*.egg-info/**
-
-""" Insert completion
+""" insert completion
 " don't select first item, follow typing in autocomplete
 set completeopt=menuone,longest,preview
-set pumheight=6             " Keep a small completion window
+set pumheight=6             " keep a small completion window
 
-""" Moving Around/Editing
+""" moving around/editing
 set cursorline              " have a line indicate the cursor location
 set ruler                   " show the cursor position all the time
-set nostartofline           " Avoid moving cursor to BOL when jumping around
-set virtualedit=block       " Let cursor move past the last char in <C-v> mode
-set backspace=2             " Allow backspacing over autoindent, EOL, and BOL
-"set nowrap                  " don't wrap text
+set nostartofline           " avoid moving cursor to BOL when jumping around
+set virtualedit=block       " cursor move past the last char in <C-v> mode
+set backspace=2             " backspacing over autoindent, EOL, and BOL
 set linebreak               " don't wrap textin the middle of a word
 set autoindent              " always set autoindenting on
 set smartindent             " use smart indent if there is no indent file
 set tabstop=4               " <tab> inserts 4 spaces
 set shiftwidth=4            " but an indent level is 2 spaces wide.
 set softtabstop=4           " <BS> over an autoindent deletes both spaces.
-set expandtab               " Use spaces, not tabs, for autoindent/tab key.
+set expandtab               " use spaces, not tabs, for autoindent/tab key.
 set shiftround              " rounds indent to a multiple of shiftwidth
 set matchpairs+=<:>         " show matching <> (html mainly) as well
 set foldmethod=indent       " allow us to fold on indents
 set foldlevel=99            " don't fold by default
-
-" When a bracket is inserted, briefly jump to the matching
-" one. The jump is only done if the match can be seen on the
-" screen. The time to show the match can be set with
-" 'matchtime'.
-set showmatch
+set showmatch               " when bracket inserted, jump to matching one
 
 " don't outdent hashes
 inoremap # #
 
-" Maximum width of text that is being inserted. A longer
-" line will be broken after white space to get this width
-"set textwidth=79
+set textwidth=79            " maximum width of text that is being inserted
 
-" This is a sequence of letters which describes how
-" automatic formatting is to be done.
-"
-" letter    meaning when present in 'formatoptions'
-" ------    ---------------------------------------
-" c         Auto-wrap comments using textwidth, inserting
-"           the current comment leader automatically.
-" q         Allow formatting of comments with "gq".
-" r         Automatically insert the current comment leader
-"           after hitting <Enter> in Insert mode.
-" t         Auto-wrap text using textwidth (does not apply
-"           to comments)
-"set formatoptions=c,q,r,t
+" c: auto-wrap comments using textwidth
+" t: auto-wrap text using textwidth
+set formatoptions=c,t
 
-"""" Messages, Info, Status
+""" messages, info, status
 set ls=2                    " allways show status line
-set confirm                 " Y-N-C prompt if closing with unsaved changes.
-set showcmd                 " Show incomplete normal mode commands as I type.
-set report=0                " : commands always print changed line count.
-set shortmess+=a            " Use [+]/[RO]/[w] for modified/readonly/written.
-set laststatus=2            " Always show statusline, even if only 1 window.
+set confirm                 " Y-N-C prompt if closing with unsaved changes
+set showcmd                 " show incomplete commands as I type
+set report=0                " : commands always print changed line count
+set shortmess+=a            " use [+]/[RO]/[w] for modified/readonly/written
+set laststatus=2            " always show statusline, even if only 1 window
 "set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
 
 " displays tabs with :set list & displays when a line runs off-screen
 set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>
 "set list
 
-""" Searching and Patterns
-set ignorecase              " Default to using case insensitive searches
-set smartcase               " unless uppercase letters are used in the regex.
-set smarttab                " Handle tabs more intelligently
-set incsearch               " Incrementally search while typing a /regex
+""" searching and patterns
+set ignorecase              " default to using case insensitive searches
+set smartcase               " unless uppercase letters are used
+set smarttab                " handle tabs more intelligently
+set incsearch               " incrementally search while typing a /regex
 
-" When there is a previous search pattern, highlight all
-" its matches.
-"set hlsearch
-
-" Toggle paste mode
+" toggle paste mode
 set pastetoggle=<F10>
 
-" Enable 256 colors
+" disable line numbers
+nnoremap <F9> :set nonumber<CR>  
+
+" try to use colors that look good on a dark background
+set background=dark
+
+" enable 256 colors
 set t_Co=256
 
 colorscheme molokai
 let g:molokai_original = 1
 
-" Remove trailing whitespace on <leader>S
+" remove trailing whitespace on <leader>S
 nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
 
-" Configure SuperTab with c-space instead tab
+" configure SuperTab with c-space instead tab
 let g:SuperTabMappingForward = '<nul>'
 let g:SuperTabMappingBackward = '<s-nul>'
 
-" Configure tab completion to be context sensitive
+" configure tab completion to be context sensitive
 let g:SuperTabDefaultCompletionType = "context"
 
-" ===========================================================
-" FileType specific changes
-" ============================================================
+""" FileType specific changes
 " Mako/HTML
 autocmd BufNewFile,BufRead *.mako,*.mak,*.jinja2 setlocal ft=html
 autocmd FileType html,xhtml,xml,css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
@@ -193,7 +159,7 @@ autocmd FileType python nnoremap <F5> :w <bar> exec '!python '.shellescape('%')<
 autocmd FileType c nnoremap <F5> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 autocmd FileType cpp nnoremap <F5> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 
-" Add the virtualenv's site-packages to vim path
+" add the virtualenv's site-packages to vim path
 if has('python')
 py << EOF
 import os.path
@@ -207,7 +173,7 @@ if 'VIRTUAL_ENV' in os.environ:
 EOF
 endif
 
-" Load up virtualenv's vimrc if it exists
+" load up virtualenv's vimrc if it exists
 if filereadable($VIRTUAL_ENV . '/.vimrc')
     source $VIRTUAL_ENV/.vimrc
 endif
