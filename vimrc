@@ -89,8 +89,7 @@ inoremap # #
 set textwidth=79            " maximum width of text that is being inserted
 
 " c: auto-wrap comments using textwidth
-" t: auto-wrap text using textwidth
-set formatoptions=c,t
+set formatoptions=c
 
 """ messages, info, status
 set ls=2                    " allways show status line
