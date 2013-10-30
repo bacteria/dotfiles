@@ -111,7 +111,7 @@ set smarttab                " handle tabs more intelligently
 set incsearch               " incrementally search while typing a /regex
 
 " toggle paste mode
-set pastetoggle=<F10>
+set pastetoggle=<F8>
 
 " disable line numbers
 nnoremap <F9> :set nonumber<CR>  
